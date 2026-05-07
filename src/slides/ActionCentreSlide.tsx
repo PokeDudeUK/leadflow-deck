@@ -502,7 +502,7 @@ export default function ActionCentreSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>11 / 15</span>
+        <span>12 / 16</span>
       </div>
     </div>
   );

@@ -216,7 +216,7 @@ export default function NextStepsSlide({ isActive }: SlideProps) {
             fontWeight: 600,
           }}
         >
-          15 / 15
+          16 / 16
         </span>
       </div>
     </div>

@@ -286,7 +286,7 @@ export default function WorkedExampleSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>08 / 15</span>
+        <span>09 / 16</span>
       </div>
     </div>
   );

@@ -203,7 +203,7 @@ export default function PipelineSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>10 / 15</span>
+        <span>11 / 16</span>
       </div>
     </div>
   );

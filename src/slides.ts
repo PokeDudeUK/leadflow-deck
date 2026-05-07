@@ -6,6 +6,7 @@ import PillarsSlide from './slides/PillarsSlide';
 import StatusSlide from './slides/StatusSlide';
 import DiscoverySlide from './slides/DiscoverySlide';
 import SectorsSlide from './slides/SectorsSlide';
+import TenderFinderSlide from './slides/TenderFinderSlide';
 import ScoringSlide from './slides/ScoringSlide';
 import WorkedExampleSlide from './slides/WorkedExampleSlide';
 import LiveAppSlide from './slides/LiveAppSlide';
@@ -27,13 +28,14 @@ export const SLIDES: ComponentType<SlideProps>[] = [
   StatusSlide,          // 4
   DiscoverySlide,       // 5
   SectorsSlide,         // 6
-  ScoringSlide,         // 7
-  WorkedExampleSlide,   // 8
-  LiveAppSlide,         // 9 — the rotating live app
-  PipelineSlide,        // 10
-  ActionCentreSlide,    // 11
-  CopilotSlide,         // 12
-  TechSlide,            // 13
-  ImpactSlide,          // 14 — The Numbers Don't Lie
-  NextStepsSlide,       // 15
+  TenderFinderSlide,    // 7 — Tender Finder, the highest-£ input
+  ScoringSlide,         // 8
+  WorkedExampleSlide,   // 9
+  LiveAppSlide,         // 10 — the rotating live app
+  PipelineSlide,        // 11
+  ActionCentreSlide,    // 12
+  CopilotSlide,         // 13
+  TechSlide,            // 14
+  ImpactSlide,          // 15 — The Numbers Don't Lie
+  NextStepsSlide,       // 16
 ];
