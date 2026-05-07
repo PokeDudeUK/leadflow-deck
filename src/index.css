@@ -1,0 +1,283 @@
+/* ═══════════════════════════════════════════════════════════════
+   Nurture LeadFlow Deck — global tokens
+   Palette derived from Replit's deck (vibrant green tech aesthetic)
+   plus amber accent for "honesty note" / highlight moments
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* CORE — direct from Replit */
+  --slide-bg:        #0e1a12;
+  --slide-primary:   #1c2e22;
+  --slide-accent:    #16a34a;
+  --slide-text:      #eef3f0;
+  --slide-muted:     #6b9b7a;
+
+  /* EXTENSIONS — for nuance */
+  --green-bright:    #22c55e;
+  --green-soft:      #86efac;
+  --green-pale:      #bbf7d0;
+  --green-deep:      #064e3b;
+
+  /* Amber for highlights (tender bonus, honesty notes) */
+  --amber:           #fbbf24;
+  --amber-deep:      #b45309;
+  --amber-soft:      #fcd34d;
+
+  /* Status */
+  --red:             #ef4444;
+  --orange:          #f97316;
+  --yellow:          #eab308;
+
+  /* Surfaces */
+  --surface-1:       rgba(255, 255, 255, 0.04);
+  --surface-2:       rgba(255, 255, 255, 0.06);
+  --surface-3:       rgba(255, 255, 255, 0.08);
+  --border-subtle:   rgba(255, 255, 255, 0.08);
+  --border-mid:      rgba(255, 255, 255, 0.12);
+
+  /* Tints of accent (for cards/panels) */
+  --accent-tint-1:   rgba(22, 163, 74, 0.08);
+  --accent-tint-2:   rgba(22, 163, 74, 0.14);
+  --accent-tint-3:   rgba(22, 163, 74, 0.22);
+  --accent-border:   rgba(22, 163, 74, 0.30);
+  --accent-glow:     rgba(22, 163, 74, 0.5);
+
+  /* Type */
+  --font-display:    'Barlow', system-ui, sans-serif;
+  --font-body:       'DM Sans', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', monospace;
+
+  color-scheme: dark;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: var(--slide-bg);
+  color: var(--slide-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+/* ─── Font utility classes ─────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-body    { font-family: var(--font-body); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ─── Slide root ────────────────────────────────────────── */
+.slide-root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ─── Animations (shared) ──────────────────────────────── */
+
+/* Bar fill — left to right */
+@keyframes bar-fill {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Card fade-up */
+@keyframes card-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle scale-in for the title slide */
+@keyframes hero-zoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.0); }
+}
+
+/* Counter pulse */
+@keyframes counter-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* Glow pulse for live status */
+@keyframes status-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+/* Gentle fade for tab cycling */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.anim-bar      { animation: bar-fill 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-card     { opacity: 0; animation: card-up 0.5s ease both; }
+.anim-zoom     { animation: hero-zoom 12s ease-out forwards; }
+.anim-pulse    { animation: status-pulse 2s infinite; }
+
+/* ─── HUD bar (top progress) ──────────────────────────── */
+.hud {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4vh;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2vw;
+  background: rgba(14, 26, 18, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.10);
+  pointer-events: none;
+}
+.hud-brand {
+  display: flex; align-items: center; gap: 0.7vw;
+  font-family: var(--font-mono);
+  font-size: 0.85vw;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(238, 243, 240, 0.55);
+}
+.hud-brand-mark {
+  color: var(--slide-accent);
+  font-size: 1vw;
+}
+.hud-progress {
+  flex: 0 1 28vw;
+  display: flex; align-items: center; gap: 1vw;
+}
+.hud-bar {
+  flex: 1;
+  height: 0.2vh;
+  background: rgba(22, 163, 74, 0.15);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.hud-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--slide-accent), var(--green-bright));
+  border-radius: 1px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.6);
+}
+.hud-counter {
+  font-family: var(--font-mono);
+  font-size: 0.85vw;
+  font-weight: 600;
+  color: var(--green-soft);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.hud-counter-divider {
+  margin: 0 0.3vw;
+  color: rgba(22, 163, 74, 0.3);
+}
+.hud-hint {
+  font-family: var(--font-mono);
+  font-size: 0.8vw;
+  color: rgba(238, 243, 240, 0.40);
+  letter-spacing: 0.08em;
+}
+.hud-hint kbd {
+  font-family: var(--font-mono);
+  background: rgba(22, 163, 74, 0.15);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  padding: 0.15vh 0.35vw;
+  border-radius: 0.2vw;
+  margin: 0 0.15vw;
+  color: var(--green-soft);
+  font-size: 0.75vw;
+}
+
+/* ─── Slide transition (between slides) ───────────────── */
+.slide-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.slide-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0.45s;
+  pointer-events: none;
+}
+.slide-frame.active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0s;
+  pointer-events: auto;
+}
+
+/* ─── Common slide structure utilities ────────────────── */
+.slide-content {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top accent line on most slides */
+.accent-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 0.45vh;
+  background: var(--slide-accent);
+  z-index: 10;
+}
+
+/* Slide footer — bottom strip with brand and page number */
+.slide-foot {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4vw;
+  font-family: var(--font-mono);
+  font-size: 0.7vw;
+  letter-spacing: 0.18em;
+  color: rgba(238, 243, 240, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 5;
+}
+.slide-foot strong {
+  color: var(--green-soft);
+  font-weight: 500;
+}
+
+/* Eyebrow - small uppercase label above titles */
+.slide-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--slide-accent);
+}
+
+/* Stagger animation delays */
+.stagger > *:nth-child(1) { animation-delay: 0.10s; }
+.stagger > *:nth-child(2) { animation-delay: 0.19s; }
+.stagger > *:nth-child(3) { animation-delay: 0.28s; }
+.stagger > *:nth-child(4) { animation-delay: 0.37s; }
+.stagger > *:nth-child(5) { animation-delay: 0.46s; }
+.stagger > *:nth-child(6) { animation-delay: 0.55s; }
+.stagger > *:nth-child(7) { animation-delay: 0.64s; }
+.stagger > *:nth-child(8) { animation-delay: 0.73s; }
