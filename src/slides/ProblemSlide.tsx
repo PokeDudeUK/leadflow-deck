@@ -65,7 +65,7 @@ function MetricNum({
   const display = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString();
   return (
     <span
-      className="font-display"
+      className="font-display hero-number-glow-amber"
       style={{
         fontSize: '2.4vw',
         fontWeight: 800,

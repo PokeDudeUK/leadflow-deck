@@ -125,8 +125,8 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
     };
   }, [isActive]);
 
-  // Old-way 4 hours = 240 min, new-way 60 min — visualised as a bar
-  const newMinutes = useCountUp(60, showFooter, 200);
+  // Old-way ~4 hours = 240 min, new-way 80 min (8:30 → 9:50, first call)
+  const newMinutes = useCountUp(80, showFooter, 200);
   const oldMinutes = useCountUp(240, showFooter, 200);
 
   return (
@@ -343,7 +343,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5vw' }}>
               <span
-                className="font-display"
+                className="font-display hero-number-glow-red"
                 style={{
                   fontSize: '2.2vw',
                   fontWeight: 800,
@@ -387,7 +387,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5vw' }}>
               <span
-                className="font-display"
+                className="font-display hero-number-glow"
                 style={{
                   fontSize: '2.2vw',
                   fontWeight: 800,
@@ -439,7 +439,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
                 lineHeight: 1.45,
               }}
             >
-              <strong style={{ color: '#fbbf24' }}>3 hours/day</strong> back per rep —{' '}
+              <strong style={{ color: '#fbbf24' }}>~2 hours/day</strong> back per rep —{' '}
               <strong style={{ color: '#22c55e' }}>selling time, not searching time.</strong>
             </div>
           </div>

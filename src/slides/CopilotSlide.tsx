@@ -12,14 +12,16 @@ interface Message {
   };
 }
 
-const CONVERSATION: Message[] = [
+interface QAPair {
+  user: string;
+  assistant: string;
+  data?: Message['data'];
+}
+
+const CONVERSATIONS: QAPair[] = [
   {
-    role: 'user',
-    text: 'What are my strongest gritting leads in Leeds this week?',
-  },
-  {
-    role: 'assistant',
-    text: 'Found 14 strong gritting leads in Leeds (score ≥ 70) in the last 7 days. Top 3:',
+    user: 'What are my strongest gritting leads in Leeds this week?',
+    assistant: 'Found 14 strong gritting leads in Leeds (score ≥ 70) in the last 7 days. Top 3:',
     data: {
       label: 'TOP 3 — GRITTING · LEEDS · LAST 7 DAYS',
       rows: [
@@ -30,36 +32,55 @@ const CONVERSATION: Message[] = [
     },
   },
   {
-    role: 'user',
-    text: 'Assign Yorkshire Cold Chain to Sarah and follow-up tomorrow.',
+    user: 'Why is Yorkshire Cold Chain scored 92?',
+    assistant: 'Score breakdown for LD-000038 — Yorkshire Cold Chain Ltd. Sector match (cold-chain logistics, SIC 49410): +35. Cold-zone postcode (LS10): +25. Tender source (Contracts Finder, gritting-related): +45. Strong keywords ("loading bay", "winter contract"): +25. Raw 130 → capped at 100 → tier STRONG. All four signals fired.',
   },
   {
-    role: 'assistant',
-    text: '✓ Assigned LD-000038 (Yorkshire Cold Chain Ltd) to Sarah Jones. Follow-up set for tomorrow at 10:00. Logged the action in the audit trail.',
+    user: 'How many wins does my team have this month?',
+    assistant: '23 wins so far in May 2026 across the Yorkshire team. Sarah Jones leads with 8 wins (avg deal £4.2k). Pipeline value of £91,400 closing this month. Three deals are stage Quote awaiting decision.',
+  },
+  {
+    user: 'Anything closing soon I should look at?',
+    assistant: '⚠️ 1 critical — Leeds City Council winter gritting contract closes in 71h. £185,000 value, no quote drafted yet. Recommend opening this first. 2 warnings — Yorkshire Cold Chain follow-up overdue 2 days, Aire Valley Distribution stale 12 days.',
   },
 ];
 
-const TYPE_SPEED = 22;        // ms per character — faster than search slide
-const PAUSE_BETWEEN = 700;    // pause between user message landing and assistant typing
-const HOLD_AFTER = 5000;      // hold after final message before looping
+const TYPE_SPEED = 18;        // ms per character — slightly faster, lots of text
+const PAUSE_AFTER_USER = 600; // pause between user msg landing and thinking
+const THINKING_MS = 700;
+const PAUSE_AFTER_ASSISTANT = 1400; // pause between assistant msg done and next user
+const HOLD_AFTER = 4500;      // hold after final message before looping
 const FADE_MS = 400;
 
-type Phase = 'idle' | 'showing-user-1' | 'thinking-1' | 'typing-assistant-1' | 'showing-user-2' | 'thinking-2' | 'typing-assistant-2' | 'holding' | 'fading';
+// State for what to render
+interface ChatState {
+  // index of the QA pair currently being typed/shown (or last completed)
+  pairsShown: number;     // how many user messages have appeared
+  thinkingFor: number;    // -1 if not thinking, otherwise pair index that is thinking
+  typingText: Record<number, string>;  // per-pair partial assistant text
+  showDataFor: Set<number>; // pair indices whose data block is revealed
+  fading: boolean;
+}
+
+const initialState: ChatState = {
+  pairsShown: 0,
+  thinkingFor: -1,
+  typingText: {},
+  showDataFor: new Set(),
+  fading: false,
+};
 
 export default function CopilotSlide({ isActive }: SlideProps) {
-  const [phase, setPhase] = useState<Phase>('idle');
-  const [typed1, setTyped1] = useState('');
-  const [typed2, setTyped2] = useState('');
-  const [showData, setShowData] = useState(false);
+  const [state, setState] = useState<ChatState>(initialState);
   const timeoutsRef = useRef<number[]>([]);
   const chatScrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll chat to bottom whenever content updates so newest message stays visible
+  // Auto-scroll chat to bottom whenever content updates
   useEffect(() => {
     const el = chatScrollRef.current;
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
-  }, [phase, typed1, typed2, showData]);
+  }, [state]);
 
   const clearAll = () => {
     timeoutsRef.current.forEach(clearTimeout);
@@ -75,62 +96,65 @@ export default function CopilotSlide({ isActive }: SlideProps) {
   useEffect(() => {
     if (!isActive) {
       clearAll();
-      setPhase('idle');
-      setTyped1('');
-      setTyped2('');
-      setShowData(false);
+      setState(initialState);
       return;
     }
 
     const runCycle = () => {
       // Reset
-      setTyped1('');
-      setTyped2('');
-      setShowData(false);
+      setState({ ...initialState, typingText: {}, showDataFor: new Set() });
 
-      let t = 600; // initial delay before any animation starts
+      let t = 600; // initial delay
 
-      // 1. User message 1 appears (slides in)
-      schedule(() => setPhase('showing-user-1'), t);
-      t += 600;
+      CONVERSATIONS.forEach((pair, i) => {
+        // 1. User message appears
+        schedule(() => {
+          setState((s) => ({ ...s, pairsShown: i + 1, thinkingFor: -1 }));
+        }, t);
+        t += PAUSE_AFTER_USER;
 
-      // 2. Thinking dots
-      schedule(() => setPhase('thinking-1'), t);
-      t += 800;
+        // 2. Thinking dots
+        schedule(() => {
+          setState((s) => ({ ...s, thinkingFor: i }));
+        }, t);
+        t += THINKING_MS;
 
-      // 3. Assistant message 1 types out
-      schedule(() => setPhase('typing-assistant-1'), t);
-      const msg1 = CONVERSATION[1].text;
-      msg1.split('').forEach((_, i) => {
-        schedule(() => setTyped1(msg1.slice(0, i + 1)), t + (i + 1) * TYPE_SPEED);
+        // 3. Assistant types out
+        schedule(() => {
+          setState((s) => ({ ...s, thinkingFor: -1 }));
+        }, t);
+        const text = pair.assistant;
+        text.split('').forEach((_, c) => {
+          schedule(() => {
+            setState((s) => ({
+              ...s,
+              typingText: { ...s.typingText, [i]: text.slice(0, c + 1) },
+            }));
+          }, t + (c + 1) * TYPE_SPEED);
+        });
+        t += text.length * TYPE_SPEED + 200;
+
+        // 4. Data block reveals (if present)
+        if (pair.data) {
+          schedule(() => {
+            setState((s) => {
+              const next = new Set(s.showDataFor);
+              next.add(i);
+              return { ...s, showDataFor: next };
+            });
+          }, t);
+          t += 1000;
+        }
+
+        // 5. Pause before next conversation
+        if (i < CONVERSATIONS.length - 1) {
+          t += PAUSE_AFTER_ASSISTANT;
+        }
       });
-      t += msg1.length * TYPE_SPEED + 200;
 
-      // 4. Data block reveals
-      schedule(() => setShowData(true), t);
-      t += 1000;
-
-      // 5. Pause, then user message 2
-      t += PAUSE_BETWEEN;
-      schedule(() => setPhase('showing-user-2'), t);
-      t += 600;
-
-      // 6. Thinking
-      schedule(() => setPhase('thinking-2'), t);
-      t += 700;
-
-      // 7. Assistant message 2 types
-      schedule(() => setPhase('typing-assistant-2'), t);
-      const msg2 = CONVERSATION[3].text;
-      msg2.split('').forEach((_, i) => {
-        schedule(() => setTyped2(msg2.slice(0, i + 1)), t + (i + 1) * TYPE_SPEED);
-      });
-      t += msg2.length * TYPE_SPEED + 200;
-
-      // 8. Hold, fade, loop
-      schedule(() => setPhase('holding'), t);
+      // Hold final state, fade, loop
       t += HOLD_AFTER;
-      schedule(() => setPhase('fading'), t);
+      schedule(() => setState((s) => ({ ...s, fading: true })), t);
       t += FADE_MS;
       schedule(runCycle, t);
     };
@@ -138,13 +162,6 @@ export default function CopilotSlide({ isActive }: SlideProps) {
     runCycle();
     return clearAll;
   }, [isActive]);
-
-  const showUser1 = phase !== 'idle';
-  const showThink1 = phase === 'thinking-1';
-  const showAsst1 = phase === 'typing-assistant-1' || phase === 'showing-user-2' || phase === 'thinking-2' || phase === 'typing-assistant-2' || phase === 'holding' || phase === 'fading';
-  const showUser2 = phase === 'showing-user-2' || phase === 'thinking-2' || phase === 'typing-assistant-2' || phase === 'holding' || phase === 'fading';
-  const showThink2 = phase === 'thinking-2';
-  const showAsst2 = phase === 'typing-assistant-2' || phase === 'holding' || phase === 'fading';
 
   return (
     <div className="slide-content" style={{ background: '#0e1a12' }}>
@@ -213,7 +230,7 @@ export default function CopilotSlide({ isActive }: SlideProps) {
             display: 'flex',
             flexDirection: 'column',
             minHeight: 0,
-            opacity: phase === 'fading' ? 0 : 1,
+            opacity: state.fading ? 0 : 1,
             transition: `opacity ${FADE_MS}ms ease`,
           }}
         >
@@ -340,48 +357,37 @@ export default function CopilotSlide({ isActive }: SlideProps) {
               scrollBehavior: 'smooth',
             }}
           >
-            {/* User message 1 */}
-            <ChatBubble
-              role="user"
-              text={CONVERSATION[0].text}
-              visible={showUser1}
-            />
+            {CONVERSATIONS.map((pair, i) => {
+              const userVisible = state.pairsShown > i;
+              const isThinking = state.thinkingFor === i;
+              const typed = state.typingText[i];
+              const assistantStarted = typed !== undefined;
+              const fullyTyped = typed === pair.assistant;
+              const dataVisible = state.showDataFor.has(i);
 
-            {/* Thinking dots 1 */}
-            {showThink1 && <ThinkingDots />}
+              return (
+                <div key={i} style={{ display: 'contents' }}>
+                  {/* User message */}
+                  {userVisible && (
+                    <ChatBubble role="user" text={pair.user} visible />
+                  )}
 
-            {/* Assistant message 1 */}
-            {showAsst1 && (
-              <ChatBubble
-                role="assistant"
-                text={typed1 || CONVERSATION[1].text}
-                visible
-                showCursor={phase === 'typing-assistant-1' && typed1.length < CONVERSATION[1].text.length}
-                data={showData ? CONVERSATION[1].data : undefined}
-              />
-            )}
+                  {/* Thinking dots — only for the pair currently thinking */}
+                  {isThinking && <ThinkingDots />}
 
-            {/* User message 2 */}
-            {showUser2 && (
-              <ChatBubble
-                role="user"
-                text={CONVERSATION[2].text}
-                visible
-              />
-            )}
-
-            {/* Thinking 2 */}
-            {showThink2 && <ThinkingDots />}
-
-            {/* Assistant 2 */}
-            {showAsst2 && (
-              <ChatBubble
-                role="assistant"
-                text={typed2 || CONVERSATION[3].text}
-                visible
-                showCursor={phase === 'typing-assistant-2' && typed2.length < CONVERSATION[3].text.length}
-              />
-            )}
+                  {/* Assistant — visible once typing starts */}
+                  {assistantStarted && (
+                    <ChatBubble
+                      role="assistant"
+                      text={typed || pair.assistant}
+                      visible
+                      showCursor={!fullyTyped}
+                      data={dataVisible ? pair.data : undefined}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Input box at bottom */}

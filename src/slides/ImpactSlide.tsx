@@ -39,6 +39,7 @@ function AnimNum({
   decimals = 0,
   fontSize,
   color,
+  glow,
 }: {
   value: number;
   isActive: boolean;
@@ -48,12 +49,18 @@ function AnimNum({
   decimals?: number;
   fontSize: string;
   color: string;
+  glow?: 'green' | 'amber' | 'red';
 }) {
   const v = useCountUp(value, isActive, delay, decimals);
   const display = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString();
+  const glowClass =
+    glow === 'amber' ? 'hero-number-glow-amber'
+    : glow === 'red' ? 'hero-number-glow-red'
+    : glow === 'green' ? 'hero-number-glow'
+    : '';
   return (
     <div
-      className="font-display"
+      className={`font-display ${glowClass}`.trim()}
       style={{
         fontSize,
         fontWeight: 800,
@@ -415,6 +422,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   decimals={1}
                   fontSize="2.8vw"
                   color="#fbbf24"
+                  glow="amber"
                 />
                 <div
                   className="font-body"
@@ -466,6 +474,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   decimals={1}
                   fontSize="2.8vw"
                   color="#22c55e"
+                  glow="green"
                 />
                 <div
                   className="font-body"

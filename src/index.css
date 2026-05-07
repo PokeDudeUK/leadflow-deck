@@ -108,11 +108,11 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   100% { transform: scale(1); }
 }
 
-/* Glow pulse for live status */
+/* Glow pulse for live status — ambient glow + expanding ring */
 @keyframes status-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
-  70%  { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+  0%   { box-shadow: 0 0 8px rgba(34, 197, 94, 0.8), 0 0 0 0 rgba(22, 163, 74, 0.7); }
+  70%  { box-shadow: 0 0 8px rgba(34, 197, 94, 0.8), 0 0 0 8px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.8), 0 0 0 0 rgba(22, 163, 74, 0); }
 }
 
 /* Gentle fade for tab cycling */
@@ -125,6 +125,17 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .anim-card     { opacity: 0; animation: card-up 0.5s ease both; }
 .anim-zoom     { animation: hero-zoom 12s ease-out forwards; }
 .anim-pulse    { animation: status-pulse 2s infinite; }
+
+/* Reusable text-glow for hero numbers (cost figures, big metrics, countdown digits) */
+.hero-number-glow {
+  text-shadow: 0 0 24px rgba(34, 197, 94, 0.35), 0 0 48px rgba(34, 197, 94, 0.18);
+}
+.hero-number-glow-amber {
+  text-shadow: 0 0 24px rgba(251, 191, 36, 0.40), 0 0 48px rgba(251, 191, 36, 0.20);
+}
+.hero-number-glow-red {
+  text-shadow: 0 0 24px rgba(239, 68, 68, 0.40), 0 0 48px rgba(239, 68, 68, 0.20);
+}
 
 /* ─── HUD bar (top progress) ──────────────────────────── */
 .hud {
@@ -238,8 +249,18 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 0.45vh;
-  background: var(--slide-accent);
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #16a34a 20%,
+    #22c55e 50%,
+    #16a34a 80%,
+    transparent 100%);
   z-index: 10;
+  animation: accent-fade-in 0.8s ease both;
+}
+@keyframes accent-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* Slide footer — bottom strip with brand and page number */

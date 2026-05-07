@@ -8,7 +8,7 @@ const HIGHLIGHTS = [
     body: 'Closing the gap to target — 90 extra wins per rep, per year, at £4k average contract value.',
   },
   {
-    metric: '3 hrs',
+    metric: '2 hrs',
     metricSub: 'back per rep, per day',
     label: 'SELLING, NOT SEARCHING',
     body: 'Reps stop hunting on portals and spreadsheets. The platform brings the leads to them, scored.',
@@ -137,7 +137,7 @@ export default function NextStepsSlide({ isActive }: SlideProps) {
               }}
             >
               <div
-                className="font-display"
+                className="font-display hero-number-glow-amber"
                 style={{
                   fontSize: '3vw',
                   fontWeight: 800,

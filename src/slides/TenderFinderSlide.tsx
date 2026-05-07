@@ -345,7 +345,7 @@ export default function TenderFinderSlide({ isActive }: SlideProps) {
               CONTRACT VALUE
             </div>
             <div
-              className="font-display"
+              className="font-display hero-number-glow-amber"
               style={{
                 fontSize: '2.6vw',
                 fontWeight: 800,
@@ -558,10 +558,11 @@ export default function TenderFinderSlide({ isActive }: SlideProps) {
 
 // ─── Single time unit (d / h / m / s) ─────────────────
 function CountUnit({ value, label, pulse }: { value: number; label: string; pulse?: boolean }) {
+  const baseClass = pulse && label === 's' ? 'count-pulse font-display' : 'font-display';
   return (
     <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.15vw' }}>
       <span
-        className={pulse && label === 's' ? 'count-pulse font-display' : 'font-display'}
+        className={`${baseClass} hero-number-glow-red`}
         style={{
           fontSize: '1.8vw',
           fontWeight: 800,
