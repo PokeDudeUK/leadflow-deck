@@ -548,7 +548,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>15 / 16</span>
+        <span>16 / 17</span>
       </div>
 
       <style>{`

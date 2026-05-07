@@ -12,6 +12,7 @@ import WorkedExampleSlide from './slides/WorkedExampleSlide';
 import LiveAppSlide from './slides/LiveAppSlide';
 import PipelineSlide from './slides/PipelineSlide';
 import ActionCentreSlide from './slides/ActionCentreSlide';
+import DayInLifeSlide from './slides/DayInLifeSlide';
 import CopilotSlide from './slides/CopilotSlide';
 import TechSlide from './slides/TechSlide';
 import ImpactSlide from './slides/ImpactSlide';
@@ -34,8 +35,9 @@ export const SLIDES: ComponentType<SlideProps>[] = [
   LiveAppSlide,         // 10 — the rotating live app
   PipelineSlide,        // 11
   ActionCentreSlide,    // 12
-  CopilotSlide,         // 13
-  TechSlide,            // 14
-  ImpactSlide,          // 15 — The Numbers Don't Lie
-  NextStepsSlide,       // 16
+  DayInLifeSlide,       // 13 — Sarah, Tuesday morning
+  CopilotSlide,         // 14
+  TechSlide,            // 15
+  ImpactSlide,          // 16 — The Numbers Don't Lie
+  NextStepsSlide,       // 17
 ];

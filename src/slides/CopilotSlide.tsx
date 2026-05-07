@@ -471,7 +471,7 @@ export default function CopilotSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>13 / 16</span>
+        <span>14 / 17</span>
       </div>
     </div>
   );

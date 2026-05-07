@@ -161,7 +161,7 @@ export default function TechSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>14 / 16</span>
+        <span>15 / 17</span>
       </div>
     </div>
   );
