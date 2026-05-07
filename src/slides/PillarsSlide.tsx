@@ -5,6 +5,7 @@ const PILLARS = [
     tag: '01 — DISCOVER',
     title: 'Find leads automatically',
     body: 'Six live data sources query in parallel: Companies House, FHRS, CQC, GIAS, Find a Tender, Contracts Finder. Search by sector and location; results stream in already deduped.',
+    solves: 'Discovery',
     accent: '#16a34a',
     icon: (
       <>
@@ -17,6 +18,7 @@ const PILLARS = [
     tag: '02 — SCORE',
     title: 'Rank them, transparently',
     body: 'Every lead gets three independent 0–100 scores — gritting, landscaping, pest. Rule-based, no black box. Reps see exactly which signals fired and why.',
+    solves: 'Qualification',
     accent: '#22c55e',
     icon: (
       <>
@@ -29,6 +31,7 @@ const PILLARS = [
     tag: '03 — ACTION',
     title: 'Move them through the pipeline',
     body: 'Assign, note, set follow-ups, change stage. Overdue chasers surface automatically. Every change is timestamped and audit-logged.',
+    solves: 'Follow-through',
     accent: '#fbbf24',
     icon: (
       <>
@@ -53,8 +56,8 @@ export default function PillarsSlide({ isActive }: SlideProps) {
           flexDirection: 'column',
         }}
       >
-        <div className="slide-eyebrow" style={{ fontSize: '0.95vw', marginBottom: '2vh' }}>
-          The product, in one slide
+        <div className="slide-eyebrow" style={{ fontSize: '0.95vw', marginBottom: '2vh', color: '#22c55e' }}>
+          The Solution
         </div>
 
         <h2
@@ -68,7 +71,7 @@ export default function PillarsSlide({ isActive }: SlideProps) {
             marginBottom: '2.5vh',
           }}
         >
-          One platform. Three pillars.
+          One platform. Three problems solved.
         </h2>
 
         <p
@@ -81,8 +84,9 @@ export default function PillarsSlide({ isActive }: SlideProps) {
             marginBottom: '6vh',
           }}
         >
-          LeadFlow takes prospects from cold-list to qualified opportunity in a single pipeline — with consistent
-          scoring across all three service lines, and every action logged.
+          Each pillar maps directly to the friction points we just identified. Discovery, Qualification,
+          and Follow-through — addressed by a single platform with consistent scoring across all three
+          service lines and every action logged.
         </p>
 
         <div
@@ -179,10 +183,46 @@ export default function PillarsSlide({ isActive }: SlideProps) {
                   fontSize: '1.0vw',
                   lineHeight: 1.6,
                   color: 'rgba(238, 243, 240, 0.7)',
+                  marginBottom: '2.5vh',
+                  flex: 1,
                 }}
               >
                 {p.body}
               </p>
+
+              {/* Solves callback — direct bridge to Problem slide */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.7vw',
+                  paddingTop: '1.6vh',
+                  borderTop: `1px solid ${p.accent}33`,
+                }}
+              >
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize: '0.7vw',
+                    fontWeight: 700,
+                    letterSpacing: '0.22em',
+                    color: 'rgba(238, 243, 240, 0.45)',
+                  }}
+                >
+                  SOLVES
+                </span>
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: '1vw',
+                    fontWeight: 600,
+                    color: p.accent,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  → {p.solves}
+                </span>
+              </div>
             </div>
           ))}
         </div>
