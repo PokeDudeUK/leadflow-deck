@@ -1,25 +1,23 @@
 import type { SlideProps } from '../slides';
 
-const STEPS = [
+const HIGHLIGHTS = [
   {
-    n: '01',
-    when: 'THIS WEEK',
-    body: 'Migrate to Postgres. Re-test under load. Lock down auth flows.',
+    metric: '+£3.6M',
+    metricSub: 'modelled annual uplift',
+    label: 'AT 10-REP PILOT',
+    body: 'Closing the gap to target — 90 extra wins per rep, per year, at £4k average contract value.',
   },
   {
-    n: '02',
-    when: 'NEXT WEEK',
-    body: 'Pilot with 3–5 named reps. Confirm we want SSO before scaling.',
+    metric: '3 hrs',
+    metricSub: 'back per rep, per day',
+    label: 'SELLING, NOT SEARCHING',
+    body: 'Reps stop hunting on portals and spreadsheets. The platform brings the leads to them, scored.',
   },
   {
-    n: '03',
-    when: 'TWO WEEKS',
-    body: 'Custom domain. Email digests. Wave-1 onboarding (10 reps).',
-  },
-  {
-    n: '04',
-    when: 'BY MONTH-END',
-    body: 'Full rollout. Pilot review meeting. Decide v3 priorities.',
+    metric: 'v2.44',
+    metricSub: 'live in production today',
+    label: 'NOT A PROTOTYPE',
+    body: 'Already running. Already integrated with six live data sources. Pilot-ready when you are.',
   },
 ];
 
@@ -94,7 +92,7 @@ export default function NextStepsSlide({ isActive }: SlideProps) {
               background: '#16a34a',
             }}
           />
-          What we're asking for
+          What's possible
         </div>
 
         <h1
@@ -110,44 +108,57 @@ export default function NextStepsSlide({ isActive }: SlideProps) {
             animation: isActive ? 'card-up 0.9s 0.3s cubic-bezier(0.22,1,0.36,1) forwards' : 'none',
           }}
         >
-          Production-ready.<br />
-          <span style={{ color: '#22c55e', fontStyle: 'italic', fontWeight: 600 }}>Let's pilot it.</span>
+          Production-ready today.<br />
+          <span style={{ color: '#22c55e', fontStyle: 'italic', fontWeight: 600 }}>Pilot-ready tomorrow.</span>
         </h1>
 
         <div
           className="stagger"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1.2vw',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '1.5vw',
             maxWidth: '88vw',
           }}
         >
-          {STEPS.map((s) => (
+          {HIGHLIGHTS.map((h) => (
             <div
-              key={s.n}
+              key={h.label}
               className={isActive ? 'anim-card' : ''}
               style={{
                 background: 'rgba(14, 42, 36, 0.7)',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
-                border: '1px solid rgba(22, 163, 74, 0.25)',
+                border: '1px solid rgba(22, 163, 74, 0.30)',
                 borderRadius: '0.5vw',
-                padding: '2.2vh 1.6vw',
+                padding: '2.5vh 1.8vw',
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
               <div
                 className="font-display"
                 style={{
-                  fontSize: '2.4vw',
+                  fontSize: '3vw',
                   fontWeight: 800,
                   color: '#fbbf24',
                   letterSpacing: '-0.02em',
                   lineHeight: 1,
-                  marginBottom: '0.8vh',
+                  marginBottom: '0.6vh',
                 }}
               >
-                {s.n}
+                {h.metric}
+              </div>
+              <div
+                className="font-body"
+                style={{
+                  fontSize: '0.85vw',
+                  color: 'rgba(238, 243, 240, 0.55)',
+                  fontStyle: 'italic',
+                  marginBottom: '1.4vh',
+                }}
+              >
+                {h.metricSub}
               </div>
               <div
                 style={{
@@ -167,17 +178,17 @@ export default function NextStepsSlide({ isActive }: SlideProps) {
                   marginBottom: '1.2vh',
                 }}
               >
-                {s.when}
+                {h.label}
               </div>
               <div
                 className="font-body"
                 style={{
-                  fontSize: '0.9vw',
+                  fontSize: '0.92vw',
                   color: '#eef3f0',
                   lineHeight: 1.5,
                 }}
               >
-                {s.body}
+                {h.body}
               </div>
             </div>
           ))}
