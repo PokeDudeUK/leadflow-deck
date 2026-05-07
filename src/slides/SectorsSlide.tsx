@@ -456,7 +456,7 @@ export default function SectorsSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>06 / 17</span>
+        <span>06 / 18</span>
       </div>
     </div>
   );

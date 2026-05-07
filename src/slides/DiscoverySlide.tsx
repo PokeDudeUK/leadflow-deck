@@ -483,7 +483,7 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>05 / 17</span>
+        <span>05 / 18</span>
       </div>
 
       {/* Scoped animations */}

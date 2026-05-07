@@ -527,7 +527,7 @@ export default function TenderFinderSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>07 / 17</span>
+        <span>07 / 18</span>
       </div>
 
       <style>{`

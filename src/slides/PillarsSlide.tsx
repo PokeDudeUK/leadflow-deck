@@ -230,7 +230,7 @@ export default function PillarsSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>03 / 17</span>
+        <span>03 / 18</span>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import ActionCentreSlide from './slides/ActionCentreSlide';
 import DayInLifeSlide from './slides/DayInLifeSlide';
 import CopilotSlide from './slides/CopilotSlide';
 import TechSlide from './slides/TechSlide';
+import RoadmapSlide from './slides/RoadmapSlide';
 import ImpactSlide from './slides/ImpactSlide';
 import NextStepsSlide from './slides/NextStepsSlide';
 
@@ -38,6 +39,7 @@ export const SLIDES: ComponentType<SlideProps>[] = [
   DayInLifeSlide,       // 13 — Sarah, Tuesday morning
   CopilotSlide,         // 14
   TechSlide,            // 15
-  ImpactSlide,          // 16 — The Numbers Don't Lie
-  NextStepsSlide,       // 17
+  RoadmapSlide,         // 16 — What's coming next: AutoMapper + Renewals
+  ImpactSlide,          // 17 — The Numbers Don't Lie
+  NextStepsSlide,       // 18
 ];
