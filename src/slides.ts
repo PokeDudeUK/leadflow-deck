@@ -13,6 +13,7 @@ import PipelineSlide from './slides/PipelineSlide';
 import ActionCentreSlide from './slides/ActionCentreSlide';
 import CopilotSlide from './slides/CopilotSlide';
 import TechSlide from './slides/TechSlide';
+import ImpactSlide from './slides/ImpactSlide';
 import NextStepsSlide from './slides/NextStepsSlide';
 
 export interface SlideProps {
@@ -33,5 +34,6 @@ export const SLIDES: ComponentType<SlideProps>[] = [
   ActionCentreSlide,    // 11
   CopilotSlide,         // 12
   TechSlide,            // 13
-  NextStepsSlide,       // 14
+  ImpactSlide,          // 14 — The Numbers Don't Lie
+  NextStepsSlide,       // 15
 ];

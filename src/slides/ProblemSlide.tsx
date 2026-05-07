@@ -165,7 +165,7 @@ export default function ProblemSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>02 / 14</span>
+        <span>02 / 15</span>
       </div>
     </div>
   );

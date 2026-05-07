@@ -392,7 +392,7 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
-        <span>09 / 14</span>
+        <span>09 / 15</span>
       </div>
     </div>
   );
