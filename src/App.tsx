@@ -94,7 +94,7 @@ function Hud({ current, total, progress }: { current: number; total: number; pro
     <div className="hud">
       <div className="hud-brand">
         <span className="hud-brand-mark">◆</span>
-        <span>NURTURE LEADFLOW</span>
+        <span>XSELLIO</span>
       </div>
       <div className="hud-progress">
         <div className="hud-bar">
