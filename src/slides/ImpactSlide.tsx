@@ -149,8 +149,8 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               textAlign: 'right',
             }}
           >
-            Modelled on Nurture's own benchmarks — 280–310 sites/rep/year target,
-            ~70% current attainment, 1-in-4 quote-to-win, £2.1k average annual contract value.
+            Modelled on Nurture's own benchmarks — 280–310 sites/rep/year target, ~70% current attainment,
+            1-in-4 quote-to-win, £2.1k average annual contract value. Modelled at half-gap closure.
           </div>
         </div>
 
@@ -188,7 +188,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 marginBottom: '0.6vh',
               }}
             >
-              TODAY · WITHOUT LEADFLOW
+              TODAY · WITHOUT XSELLIO
             </div>
             <div
               className="font-body"
@@ -259,7 +259,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
             </div>
           </div>
 
-          {/* COL 2 — WITH LEADFLOW */}
+          {/* COL 2 — WITH XSELLIO */}
           <div
             className={isActive ? 'imp-col-2' : ''}
             style={{
@@ -282,7 +282,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 marginBottom: '0.6vh',
               }}
             >
-              WITH LEADFLOW
+              WITH XSELLIO
             </div>
             <div
               className="font-body"
@@ -298,7 +298,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
 
             <div style={{ marginBottom: '2.2vh' }}>
               <AnimNum
-                value={290}
+                value={245}
                 isActive={isActive}
                 delay={500}
                 fontSize="3.2vw"
@@ -314,13 +314,13 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 className="font-body"
                 style={{ fontSize: '0.82vw', color: 'rgba(238, 243, 240, 0.45)', marginTop: '0.2vh' }}
               >
-                On-target — middle of the 280–310 band
+                Halfway from current to target — modest assumption
               </div>
             </div>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.8vh' }}>
               <AnimNum
-                value={90}
+                value={45}
                 isActive={isActive}
                 delay={800}
                 prefix="+"
@@ -349,7 +349,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 marginTop: '1.4vh',
               }}
             >
-              Same close rate. More qualified leads in the funnel. Closes the target gap.
+              Same close rate. More qualified leads in the funnel. Half the gap closed.
             </div>
           </div>
 
@@ -387,10 +387,10 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 lineHeight: 1.4,
               }}
             >
-              Extra sites × £2.1k average annual contract value.
+              Modest case — closes <strong>half</strong> the gap to target. £2.1k average annual contract value.
             </div>
 
-            {/* Pilot scenario */}
+            {/* Pilot scenario — conservative */}
             <div
               style={{
                 background: 'rgba(0, 0, 0, 0.25)',
@@ -414,12 +414,11 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6vw' }}>
                 <AnimNum
-                  value={1.9}
+                  value={945}
                   isActive={isActive}
                   delay={1000}
                   prefix="+£"
-                  suffix="M"
-                  decimals={1}
+                  suffix="k"
                   fontSize="2.8vw"
                   color="#fbbf24"
                   glow="amber"
@@ -439,11 +438,11 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   marginTop: '0.4vh',
                 }}
               >
-                900 extra sites × £2.1k
+                450 extra sites × £2.1k
               </div>
             </div>
 
-            {/* Scaled scenario */}
+            {/* Scaled scenario — conservative */}
             <div
               style={{
                 background: 'rgba(0, 0, 0, 0.25)',
@@ -466,7 +465,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6vw' }}>
                 <AnimNum
-                  value={5.7}
+                  value={2.8}
                   isActive={isActive}
                   delay={1200}
                   prefix="+£"
@@ -491,7 +490,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   marginTop: '0.4vh',
                 }}
               >
-                2,700 extra sites × £2.1k
+                1,350 extra sites × £2.1k
               </div>
             </div>
           </div>
@@ -523,7 +522,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               flexShrink: 0,
             }}
           >
-            CONSERVATIVE CASE
+            UPSIDE CASE
           </div>
           <div
             className="font-body"
@@ -534,9 +533,9 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               flex: 1,
             }}
           >
-            Even if LeadFlow only closes <strong style={{ color: '#fbbf24' }}>half</strong> the gap to target,
-            that's still <strong style={{ color: '#22c55e' }}>+£945k/year</strong> at pilot scale and{' '}
-            <strong style={{ color: '#22c55e' }}>+£2.8M/year</strong> scaled — payback in months, not years.
+            If xsellio closes <strong style={{ color: '#fbbf24' }}>the full</strong> gap to target,
+            the model doubles to <strong style={{ color: '#22c55e' }}>+£1.9M/year</strong> at pilot scale and{' '}
+            <strong style={{ color: '#22c55e' }}>+£5.7M/year</strong> scaled.
           </div>
           <div
             className="font-body"
@@ -556,7 +555,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>17 / 18</span>
       </div>
 

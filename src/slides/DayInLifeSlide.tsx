@@ -339,7 +339,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
                 marginBottom: '0.5vh',
               }}
             >
-              OLD WAY · BEFORE LEADFLOW
+              OLD WAY · BEFORE XSELLIO
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5vw' }}>
               <span
@@ -383,7 +383,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
                 marginBottom: '0.5vh',
               }}
             >
-              WITH LEADFLOW
+              WITH XSELLIO
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5vw' }}>
               <span
@@ -447,7 +447,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>13 / 18</span>
       </div>
     </div>

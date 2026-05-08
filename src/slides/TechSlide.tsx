@@ -34,7 +34,7 @@ const COLUMNS = [
       ['Postgres migration', 'Move from SQLite for concurrency'],
       ['SSO integration', 'Microsoft 365 / Google Workspace'],
       ['Email notifications', 'Daily digest + critical alerts'],
-      ['Custom domain', 'leadflow.nurturegroup.co.uk'],
+      ['Custom domain', 'xsellio.com'],
       ['Load testing', 'Validate at 50–100 concurrent users'],
       ['Onboarding flow', 'Email invites · password reset'],
       ['Pen test', 'External review before opening up'],
@@ -160,7 +160,7 @@ export default function TechSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>15 / 18</span>
       </div>
     </div>

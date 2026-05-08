@@ -272,7 +272,7 @@ export default function ProblemSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>02 / 18</span>
       </div>
     </div>

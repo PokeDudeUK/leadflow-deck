@@ -65,13 +65,7 @@ export default function ActionCentreSlide({ isActive }: SlideProps) {
         schedule(() => setVisibleCount(i + 1), 600 + i * REVEAL_DELAY);
       });
 
-      const allInTime = 600 + ALERTS.length * REVEAL_DELAY;
-
-      // Hold, then fade
-      schedule(() => setFading(true), allInTime + HOLD_MS);
-
-      // Reset for next cycle
-      schedule(runCycle, allInTime + HOLD_MS + FADE_MS);
+      // No looping — alerts stream in once and stay visible
     };
 
     runCycle();
@@ -200,7 +194,7 @@ export default function ActionCentreSlide({ isActive }: SlideProps) {
             }}
           >
             <div className="font-display" style={{ fontSize: '1vw', fontWeight: 700, color: '#16a34a' }}>
-              LeadFlow
+              xsellio
             </div>
             {['Dashboard', 'Discover', 'Action Centre', 'My Leads'].map((n) => {
               const active = n === 'Action Centre';
@@ -501,7 +495,7 @@ export default function ActionCentreSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>12 / 18</span>
       </div>
     </div>

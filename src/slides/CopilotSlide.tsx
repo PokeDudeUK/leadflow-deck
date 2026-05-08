@@ -45,11 +45,11 @@ const CONVERSATIONS: QAPair[] = [
   },
 ];
 
-const TYPE_SPEED = 18;        // ms per character — slightly faster, lots of text
-const PAUSE_AFTER_USER = 600; // pause between user msg landing and thinking
-const THINKING_MS = 700;
-const PAUSE_AFTER_ASSISTANT = 1400; // pause between assistant msg done and next user
-const HOLD_AFTER = 4500;      // hold after final message before looping
+const TYPE_SPEED = 32;        // ms per character — slowed down for readability
+const PAUSE_AFTER_USER = 900; // pause between user msg landing and thinking
+const THINKING_MS = 1100;
+const PAUSE_AFTER_ASSISTANT = 2400; // generous pause between Q&As — speaker can talk
+const HOLD_AFTER = 6000;      // hold after final message before looping
 const FADE_MS = 400;
 
 // State for what to render
@@ -72,8 +72,14 @@ const initialState: ChatState = {
 
 export default function CopilotSlide({ isActive }: SlideProps) {
   const [state, setState] = useState<ChatState>(initialState);
+  const [isPaused, setIsPaused] = useState(false);
   const timeoutsRef = useRef<number[]>([]);
   const chatScrollRef = useRef<HTMLDivElement>(null);
+
+  // Reset pause state when slide becomes inactive
+  useEffect(() => {
+    if (!isActive) setIsPaused(false);
+  }, [isActive]);
 
   // Auto-scroll chat to bottom whenever content updates
   useEffect(() => {
@@ -94,9 +100,10 @@ export default function CopilotSlide({ isActive }: SlideProps) {
   };
 
   useEffect(() => {
-    if (!isActive) {
+    if (!isActive || isPaused) {
       clearAll();
-      setState(initialState);
+      if (!isActive) setState(initialState);
+      // When paused but active: clear timeouts, leave state frozen
       return;
     }
 
@@ -161,7 +168,7 @@ export default function CopilotSlide({ isActive }: SlideProps) {
 
     runCycle();
     return clearAll;
-  }, [isActive]);
+  }, [isActive, isPaused]);
 
   return (
     <div className="slide-content" style={{ background: '#0e1a12' }}>
@@ -297,7 +304,7 @@ export default function CopilotSlide({ isActive }: SlideProps) {
                     color: '#eef3f0',
                   }}
                 >
-                  LeadFlow Assistant
+                  xsellio Assistant
                 </div>
                 <div
                   className="font-mono"
@@ -324,20 +331,37 @@ export default function CopilotSlide({ isActive }: SlideProps) {
                 </div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.5vw' }}>
-              <span
-                className="font-mono"
+            <div style={{ display: 'flex', gap: '0.5vw', alignItems: 'center' }}>
+              <button
+                onClick={() => setIsPaused((p) => !p)}
+                aria-label={isPaused ? 'Resume animation' : 'Pause animation'}
                 style={{
-                  fontSize: '0.7vw',
-                  color: 'rgba(238, 243, 240, 0.5)',
-                  padding: '0.3vh 0.6vw',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '0.2vw',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4vw',
+                  fontSize: '0.78vw',
+                  fontWeight: 600,
+                  letterSpacing: '0.06em',
+                  color: isPaused ? '#22c55e' : '#86efac',
+                  padding: '0.5vh 0.9vw',
+                  background: isPaused ? 'rgba(22, 163, 74, 0.18)' : 'rgba(22, 163, 74, 0.08)',
+                  border: `1px solid ${isPaused ? 'rgba(22, 163, 74, 0.55)' : 'rgba(22, 163, 74, 0.30)'}`,
+                  borderRadius: '0.25vw',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-mono)',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(22, 163, 74, 0.22)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = isPaused
+                    ? 'rgba(22, 163, 74, 0.18)'
+                    : 'rgba(22, 163, 74, 0.08)';
                 }}
               >
-                ⚙ Settings
-              </span>
+                {isPaused ? '▶  RESUME' : '⏸  PAUSE'}
+              </button>
             </div>
           </div>
 
@@ -476,7 +500,7 @@ export default function CopilotSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>14 / 18</span>
       </div>
     </div>
@@ -528,7 +552,7 @@ function ChatBubble({
             marginBottom: '0.5vh',
           }}
         >
-          {isUser ? 'YOU' : 'LEADFLOW ASSISTANT'}
+          {isUser ? 'YOU' : 'XSELLIO ASSISTANT'}
         </div>
         <div
           className="font-body"

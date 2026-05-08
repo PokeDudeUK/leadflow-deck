@@ -230,7 +230,7 @@ export default function SectorsSlide({ isActive }: SlideProps) {
             }}
           >
             <div className="font-display" style={{ fontSize: '1vw', fontWeight: 700, color: '#16a34a' }}>
-              LeadFlow
+              xsellio
             </div>
             {['Dashboard', 'Discover', 'Action Centre', 'My Leads'].map((n) => {
               const active = n === 'Discover';
@@ -455,7 +455,7 @@ export default function SectorsSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>06 / 18</span>
       </div>
     </div>

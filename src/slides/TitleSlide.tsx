@@ -244,31 +244,20 @@ export default function TitleSlide({ isActive }: SlideProps) {
           <h1
             className="font-display"
             style={{
-              fontSize: '9.5vw',
+              fontSize: '13vw',
               fontWeight: 800,
               lineHeight: 0.92,
-              letterSpacing: '-0.035em',
-              color: '#eef3f0',
+              letterSpacing: '-0.04em',
+              color: '#22c55e',
               textWrap: 'balance' as const,
               opacity: 0,
-              animation: isActive ? 'word-reveal 1s 0.5s cubic-bezier(0.22,1,0.36,1) forwards' : 'none',
+              animation: isActive ? 'lead-flow-glow 1.2s 0.6s cubic-bezier(0.22,1,0.36,1) forwards' : 'none',
               position: 'relative',
               zIndex: 2,
               textShadow: '0 0 60px rgba(0,0,0,0.5)',
             }}
           >
-            Nurture{' '}
-            <span
-              style={{
-                color: '#22c55e',
-                position: 'relative',
-                display: 'inline-block',
-                opacity: 0,
-                animation: isActive ? 'lead-flow-glow 1.2s 1.0s cubic-bezier(0.22,1,0.36,1) forwards' : 'none',
-              }}
-            >
-              LeadFlow
-            </span>
+            XSELLIO
           </h1>
 
           {/* Sweep light streak */}

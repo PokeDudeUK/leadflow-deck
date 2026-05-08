@@ -96,7 +96,8 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
     return id;
   };
 
-  // Run the animation loop
+  // Run the type→search→results sequence for the current search
+  // (no auto-advance — user controls navigation via buttons)
   useEffect(() => {
     if (!isActive) {
       clearAllTimeouts();
@@ -105,42 +106,37 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
       return;
     }
 
-    // Start the cycle
-    const runCycle = (s: Search, nextIdx: number) => {
-      // Reset
-      setTyped('');
-      setPhase('typing');
+    // Reset and start
+    clearAllTimeouts();
+    setTyped('');
+    setPhase('typing');
 
-      // Type each character
-      const chars = s.query.split('');
-      chars.forEach((char, i) => {
-        schedule(() => {
-          setTyped(s.query.slice(0, i + 1));
-        }, (i + 1) * TYPE_SPEED);
-      });
-
-      const typingEnd = chars.length * TYPE_SPEED + 200;
-
-      // Searching state
-      schedule(() => setPhase('searching'), typingEnd);
-
-      // Show results
-      schedule(() => setPhase('results'), typingEnd + SEARCHING_MS);
-
-      // Hold, then fade
-      schedule(() => setPhase('fading'), typingEnd + SEARCHING_MS + RESULTS_HOLD);
-
-      // Next search
+    const s = search;
+    const chars = s.query.split('');
+    chars.forEach((_, i) => {
       schedule(() => {
-        setSearchIdx(nextIdx);
-      }, typingEnd + SEARCHING_MS + RESULTS_HOLD + FADE_MS);
-    };
+        setTyped(s.query.slice(0, i + 1));
+      }, (i + 1) * TYPE_SPEED);
+    });
 
-    runCycle(search, (searchIdx + 1) % SEARCHES.length);
+    const typingEnd = chars.length * TYPE_SPEED + 200;
+    schedule(() => setPhase('searching'), typingEnd);
+    schedule(() => setPhase('results'), typingEnd + SEARCHING_MS);
+    // No auto-advance — sit on results until user clicks next
 
     return clearAllTimeouts;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchIdx, isActive]);
+
+  const goNext = () => {
+    setSearchIdx((i) => (i + 1) % SEARCHES.length);
+  };
+  const goPrev = () => {
+    setSearchIdx((i) => (i - 1 + SEARCHES.length) % SEARCHES.length);
+  };
+  const goTo = (i: number) => {
+    if (i !== searchIdx) setSearchIdx(i);
+  };
 
   return (
     <div className="slide-content" style={{ background: '#0e1a12' }}>
@@ -183,7 +179,7 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
             marginBottom: '2.5vh',
           }}
         >
-          Type a company name, town, or sector. LeadFlow queries Companies House, Google Places, Yelp, and the
+          Type a company name, town, or sector. xsellio queries Companies House, Google Places, Yelp, and the
           tender feeds simultaneously — every result is scored for all three services before it lands.
         </p>
 
@@ -258,7 +254,7 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
             }}
           >
             <div className="font-display" style={{ fontSize: '1vw', fontWeight: 700, color: '#16a34a' }}>
-              LeadFlow
+              xsellio
             </div>
             {['Dashboard', 'Discover', 'Action Centre', 'My Leads'].map((n) => {
               const active = n === 'Discover';
@@ -482,8 +478,114 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>05 / 18</span>
+      </div>
+
+      {/* Manual navigation controls */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '5vh',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1vw',
+          background: 'rgba(14, 26, 18, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(22, 163, 74, 0.30)',
+          borderRadius: '999px',
+          padding: '0.7vh 1.2vw',
+          zIndex: 20,
+          opacity: isActive ? 1 : 0,
+          transition: 'opacity 0.4s ease 0.5s',
+        }}
+      >
+        <button
+          onClick={goPrev}
+          aria-label="Previous search"
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: '#86efac',
+            fontSize: '1.1vw',
+            padding: '0.4vh 0.6vw',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.2s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(22, 163, 74, 0.15)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+        >
+          ◀
+        </button>
+
+        {SEARCHES.map((s, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            aria-label={`Go to search: ${s.query}`}
+            style={{
+              background: i === searchIdx ? '#22c55e' : 'rgba(134, 239, 172, 0.25)',
+              border: 'none',
+              cursor: 'pointer',
+              width: i === searchIdx ? '1.6vw' : '0.6vw',
+              height: '0.6vw',
+              borderRadius: '999px',
+              padding: 0,
+              transition: 'all 0.3s ease',
+              boxShadow: i === searchIdx ? '0 0 8px rgba(34, 197, 94, 0.6)' : 'none',
+            }}
+          />
+        ))}
+
+        <button
+          onClick={goNext}
+          aria-label="Next search"
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: '#86efac',
+            fontSize: '1.1vw',
+            padding: '0.4vh 0.6vw',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.2s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(22, 163, 74, 0.15)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+        >
+          ▶
+        </button>
+
+        <div
+          style={{
+            width: '1px',
+            height: '2vh',
+            background: 'rgba(134, 239, 172, 0.20)',
+            margin: '0 0.5vw',
+          }}
+        />
+
+        <span
+          className="font-mono"
+          style={{
+            fontSize: '0.75vw',
+            color: 'rgba(134, 239, 172, 0.7)',
+            letterSpacing: '0.05em',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {searchIdx + 1} / {SEARCHES.length}
+        </span>
       </div>
 
       {/* Scoped animations */}

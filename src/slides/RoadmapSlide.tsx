@@ -114,7 +114,7 @@ export default function RoadmapSlide({ isActive }: SlideProps) {
                 maxWidth: '52vw',
               }}
             >
-              LeadFlow is the foundation.<br />
+              xsellio is the foundation.<br />
               <span style={{ color: '#22c55e', fontStyle: 'italic', fontWeight: 600 }}>
                 Two more in the works.
               </span>
@@ -380,7 +380,7 @@ export default function RoadmapSlide({ isActive }: SlideProps) {
               flex: 1,
             }}
           >
-            <strong style={{ color: '#22c55e' }}>Find the lead</strong> (LeadFlow) →{' '}
+            <strong style={{ color: '#22c55e' }}>Find the lead</strong> (xsellio) →{' '}
             <strong style={{ color: '#22c55e' }}>quote it fast</strong> (AutoMapper) →{' '}
             <strong style={{ color: '#fbbf24' }}>keep the customer</strong> (Renewals).{' '}
             <span style={{ color: 'rgba(238, 243, 240, 0.6)' }}>
@@ -391,7 +391,7 @@ export default function RoadmapSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>16 / 18</span>
       </div>
     </div>

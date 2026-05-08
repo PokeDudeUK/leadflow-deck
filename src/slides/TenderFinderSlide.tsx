@@ -519,14 +519,14 @@ export default function TenderFinderSlide({ isActive }: SlideProps) {
           >
             Tenders found manually arrive <strong style={{ color: '#fca5a5' }}>1+ week late on average</strong> —
             often after competitors have already submitted.{' '}
-            <strong style={{ color: '#22c55e' }}>LeadFlow surfaces them within hours of publication</strong>,
+            <strong style={{ color: '#22c55e' }}>xsellio surfaces them within hours of publication</strong>,
             scored and ranked, with the closing date in the Action Centre.
           </div>
         </div>
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>07 / 18</span>
       </div>
 

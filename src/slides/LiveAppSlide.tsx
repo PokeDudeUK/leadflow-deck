@@ -36,23 +36,17 @@ const PAGES = [
   },
 ];
 
-const CYCLE_MS = 5500;
 const FADE_MS = 350;
 
 export default function LiveAppSlide({ isActive }: SlideProps) {
   const [current, setCurrent] = useState(0);
   const [fading, setFading] = useState(false);
 
+  // Reset to first screen whenever the slide becomes active
   useEffect(() => {
     if (!isActive) return;
-    const timer = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setCurrent((c) => (c + 1) % PAGES.length);
-        setFading(false);
-      }, FADE_MS);
-    }, CYCLE_MS);
-    return () => clearInterval(timer);
+    setCurrent(0);
+    setFading(false);
   }, [isActive]);
 
   const page = PAGES[current];
@@ -65,6 +59,9 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
       setFading(false);
     }, FADE_MS);
   };
+
+  const goNext = () => goTo((current + 1) % PAGES.length);
+  const goPrev = () => goTo((current - 1 + PAGES.length) % PAGES.length);
 
   return (
     <div className="slide-content" style={{ background: '#0e1a12' }}>
@@ -172,7 +169,7 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
             </div>
           </div>
 
-          {/* Page indicator dots */}
+          {/* Page indicator dots with prev/next buttons */}
           <div
             className="interactive"
             style={{
@@ -182,6 +179,36 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
               gap: '0.6vw',
             }}
           >
+            <button
+              onClick={(e) => { e.stopPropagation(); goPrev(); }}
+              aria-label="Previous screen"
+              style={{
+                background: 'rgba(22, 163, 74, 0.10)',
+                border: '1px solid rgba(22, 163, 74, 0.30)',
+                cursor: 'pointer',
+                color: '#86efac',
+                fontSize: '0.95vw',
+                width: '2.2vw',
+                height: '2.2vw',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                marginRight: '0.4vw',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(22, 163, 74, 0.25)';
+                e.currentTarget.style.borderColor = 'rgba(22, 163, 74, 0.55)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(22, 163, 74, 0.10)';
+                e.currentTarget.style.borderColor = 'rgba(22, 163, 74, 0.30)';
+              }}
+            >
+              ◀
+            </button>
+
             {PAGES.map((p, i) => (
               <button
                 key={p.id}
@@ -203,10 +230,42 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
                     borderRadius: '0.3vw',
                     background: i === current ? '#16a34a' : 'rgba(255, 255, 255, 0.20)',
                     transition: 'all 0.4s ease',
+                    boxShadow: i === current ? '0 0 8px rgba(34, 197, 94, 0.5)' : 'none',
                   }}
                 />
               </button>
             ))}
+
+            <button
+              onClick={(e) => { e.stopPropagation(); goNext(); }}
+              aria-label="Next screen"
+              style={{
+                background: 'rgba(22, 163, 74, 0.10)',
+                border: '1px solid rgba(22, 163, 74, 0.30)',
+                cursor: 'pointer',
+                color: '#86efac',
+                fontSize: '0.95vw',
+                width: '2.2vw',
+                height: '2.2vw',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+                marginLeft: '0.4vw',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(22, 163, 74, 0.25)';
+                e.currentTarget.style.borderColor = 'rgba(22, 163, 74, 0.55)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(22, 163, 74, 0.10)';
+                e.currentTarget.style.borderColor = 'rgba(22, 163, 74, 0.30)';
+              }}
+            >
+              ▶
+            </button>
+
             <span
               className="font-mono"
               style={{
@@ -383,7 +442,7 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
                   color: 'rgba(238, 243, 240, 0.3)',
                 }}
               >
-                Nurture LeadFlow · Christos P. (Admin)
+                xsellio · Christos P. (Admin)
               </span>
             </div>
           </div>
@@ -391,7 +450,7 @@ export default function LiveAppSlide({ isActive }: SlideProps) {
       </div>
 
       <div className="slide-foot">
-        <span><strong>NURTURE LEADFLOW</strong> · CCO + IT BRIEFING</span>
+        <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
         <span>10 / 18</span>
       </div>
     </div>
