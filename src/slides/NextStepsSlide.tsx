@@ -2,10 +2,10 @@ import type { SlideProps } from '../slides';
 
 const HIGHLIGHTS = [
   {
-    metric: '+£3.6M',
+    metric: '+£1.9M',
     metricSub: 'modelled annual uplift',
     label: 'AT 10-REP PILOT',
-    body: 'Closing the gap to target — 90 extra wins per rep, per year, at £4k average contract value.',
+    body: 'Closing the gap to target — 90 extra wins per rep, per year, at £2.1k average contract value.',
   },
   {
     metric: '2 hrs',

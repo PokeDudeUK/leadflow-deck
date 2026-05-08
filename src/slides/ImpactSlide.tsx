@@ -150,7 +150,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
             }}
           >
             Modelled on Nurture's own benchmarks — 280–310 sites/rep/year target,
-            ~70% current attainment, 1-in-4 quote-to-win, £4k average annual contract value.
+            ~70% current attainment, 1-in-4 quote-to-win, £2.1k average annual contract value.
           </div>
         </div>
 
@@ -387,7 +387,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                 lineHeight: 1.4,
               }}
             >
-              Extra sites × £4k average annual contract value.
+              Extra sites × £2.1k average annual contract value.
             </div>
 
             {/* Pilot scenario */}
@@ -414,7 +414,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6vw' }}>
                 <AnimNum
-                  value={3.6}
+                  value={1.9}
                   isActive={isActive}
                   delay={1000}
                   prefix="+£"
@@ -439,7 +439,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   marginTop: '0.4vh',
                 }}
               >
-                900 extra sites × £4k
+                900 extra sites × £2.1k
               </div>
             </div>
 
@@ -466,7 +466,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6vw' }}>
                 <AnimNum
-                  value={10.8}
+                  value={5.7}
                   isActive={isActive}
                   delay={1200}
                   prefix="+£"
@@ -491,7 +491,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
                   marginTop: '0.4vh',
                 }}
               >
-                2,700 extra sites × £4k
+                2,700 extra sites × £2.1k
               </div>
             </div>
           </div>
@@ -535,8 +535,8 @@ export default function ImpactSlide({ isActive }: SlideProps) {
             }}
           >
             Even if LeadFlow only closes <strong style={{ color: '#fbbf24' }}>half</strong> the gap to target,
-            that's still <strong style={{ color: '#22c55e' }}>+£1.8M/year</strong> at pilot scale and{' '}
-            <strong style={{ color: '#22c55e' }}>+£5.4M/year</strong> scaled — payback in months, not years.
+            that's still <strong style={{ color: '#22c55e' }}>+£945k/year</strong> at pilot scale and{' '}
+            <strong style={{ color: '#22c55e' }}>+£2.8M/year</strong> scaled — payback in months, not years.
           </div>
           <div
             className="font-body"
