@@ -2,17 +2,17 @@ import { useEffect, useCallback } from 'react';
 import { SLIDES } from './slides';
 import { useSyncedSlide } from './useSyncedSlide';
 import PresenterView from './PresenterView';
+import TrailerView from './TrailerView';
 
 export default function App() {
-  // Route: /presenter → PresenterView, else audience view
-  // No router library needed — single check at mount based on pathname/hash.
-  const isPresenter =
-    typeof window !== 'undefined' &&
-    (window.location.pathname.startsWith('/presenter') ||
-      window.location.hash === '#presenter');
-
-  if (isPresenter) {
-    return <PresenterView />;
+  // Route based on URL pathname or hash
+  if (typeof window !== 'undefined') {
+    if (window.location.pathname.startsWith('/trailer') || window.location.hash === '#trailer') {
+      return <TrailerView />;
+    }
+    if (window.location.pathname.startsWith('/presenter') || window.location.hash === '#presenter') {
+      return <PresenterView />;
+    }
   }
   return <AudienceView />;
 }
