@@ -479,7 +479,7 @@ export default function DiscoverySlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>05 / 18</span>
+        <span>05 / 19</span>
       </div>
 
       {/* Manual navigation controls */}

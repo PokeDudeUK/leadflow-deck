@@ -198,7 +198,7 @@ export default function StatusSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>04 / 18</span>
+        <span>04 / 19</span>
       </div>
     </div>
   );

@@ -527,7 +527,7 @@ export default function TenderFinderSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>07 / 18</span>
+        <span>07 / 19</span>
       </div>
 
       <style>{`

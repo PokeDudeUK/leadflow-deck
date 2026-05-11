@@ -448,7 +448,7 @@ export default function DayInLifeSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>13 / 18</span>
+        <span>13 / 19</span>
       </div>
     </div>
   );

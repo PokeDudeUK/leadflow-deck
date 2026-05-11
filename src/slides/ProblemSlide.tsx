@@ -273,7 +273,7 @@ export default function ProblemSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>02 / 18</span>
+        <span>02 / 19</span>
       </div>
     </div>
   );

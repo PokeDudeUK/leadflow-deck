@@ -456,7 +456,7 @@ export default function SectorsSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>06 / 18</span>
+        <span>06 / 19</span>
       </div>
     </div>
   );

@@ -274,7 +274,7 @@ export default function ScoringSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>08 / 18</span>
+        <span>08 / 19</span>
       </div>
     </div>
   );

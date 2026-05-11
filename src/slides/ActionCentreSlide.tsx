@@ -496,7 +496,7 @@ export default function ActionCentreSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>12 / 18</span>
+        <span>12 / 19</span>
       </div>
     </div>
   );

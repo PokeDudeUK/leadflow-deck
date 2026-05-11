@@ -1,21 +1,29 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { SLIDES } from './slides';
+import { useSyncedSlide } from './useSyncedSlide';
+import PresenterView from './PresenterView';
 
 export default function App() {
-  const [current, setCurrent] = useState(0);
+  // Route: /presenter → PresenterView, else audience view
+  // No router library needed — single check at mount based on pathname/hash.
+  const isPresenter =
+    typeof window !== 'undefined' &&
+    (window.location.pathname.startsWith('/presenter') ||
+      window.location.hash === '#presenter');
+
+  if (isPresenter) {
+    return <PresenterView />;
+  }
+  return <AudienceView />;
+}
+
+function AudienceView() {
   const total = SLIDES.length;
+  const [current, setCurrent] = useSyncedSlide(total);
 
-  const goNext = useCallback(() => {
-    setCurrent((c) => Math.min(c + 1, total - 1));
-  }, [total]);
-
-  const goPrev = useCallback(() => {
-    setCurrent((c) => Math.max(c - 1, 0));
-  }, []);
-
-  const goTo = useCallback((idx: number) => {
-    if (idx >= 0 && idx < total) setCurrent(idx);
-  }, [total]);
+  const goNext = useCallback(() => setCurrent((c) => c + 1), [setCurrent]);
+  const goPrev = useCallback(() => setCurrent((c) => c - 1), [setCurrent]);
+  const goTo = useCallback((idx: number) => setCurrent(idx), [setCurrent]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -79,8 +87,6 @@ export default function App() {
             key={i}
             className={`slide-frame ${i === current ? 'active' : ''}`}
           >
-            {/* Render only the active slide and its neighbours for perf, but
-                keep all in tree so transitions feel right */}
             {Math.abs(i - current) <= 1 && <Slide isActive={i === current} />}
           </div>
         ))}

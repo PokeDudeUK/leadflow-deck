@@ -556,7 +556,7 @@ export default function ImpactSlide({ isActive }: SlideProps) {
 
       <div className="slide-foot">
         <span><strong>XSELLIO</strong> · CCO + IT BRIEFING</span>
-        <span>17 / 18</span>
+        <span>18 / 19</span>
       </div>
 
       <style>{`
